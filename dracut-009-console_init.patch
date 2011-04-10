@@ -1,0 +1,13 @@
+diff -urN dracut-009.orig/modules.d/10i18n/module-setup.sh dracut-009/modules.d/10i18n/module-setup.sh
+--- dracut-009.orig/modules.d/10i18n/module-setup.sh	2011-04-11 00:52:58.201228430 +0400
++++ dracut-009/modules.d/10i18n/module-setup.sh	2011-04-11 00:53:37.929541830 +0400
+@@ -81,8 +81,8 @@
+ 
+     install_base() {
+         dracut_install setfont loadkeys kbd_mode stty
++        dracut_install /lib/udev/console_init
+ 
+-        inst ${moddir}/console_init /lib/udev/console_init
+         inst_rules ${moddir}/10-console.rules
+         inst_hook cmdline 20 "${moddir}/parse-i18n.sh"
+     }
