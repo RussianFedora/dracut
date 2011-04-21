@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 009
-Release: 5%{?dist}.1
+Release: 6%{?dist}.1.R
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora}
@@ -38,7 +38,9 @@ Patch17: 0017-plymouth-use-run-plymouth-pid-instead-of-run-initram.patch
 Patch18: 0018-dmsquash-live-dmsquash-live-genrules.sh-fixed-udev-r.patch
 Patch19: 0019-base-dracut-lib.sh-changed-kmgs-log-levels.patch
 Patch20: 0020-base-init-reset-PATH-after-the-run-move.patch
+Patch27: 0027-dracut-don-t-fail-on-empty-etc-ld.so.conf.d.patch
 
+# load font
 Patch99: dracut-009-console_init.patch
 
 BuildArch: noarch
@@ -191,6 +193,7 @@ This package contains tools to assemble the local initrd and host configuration.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch27 -p1
 
 %patch99 -p1
 
@@ -329,6 +332,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/dracut/overlay
 
 %changelog
+* Mon Apr 18 2011 Harald Hoyer <harald@redhat.com> 009-6.1.R
+- do not fail on empty ld.so.conf.d
+Resolves: rhbz#696997
+
 * Mon Apr 11 2011 Arkady L. Shane <ashejn@yandex-team.ru> 009-5.1
 - fixed console font loading
 
