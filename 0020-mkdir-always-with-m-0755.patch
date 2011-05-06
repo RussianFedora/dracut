@@ -1,0 +1,279 @@
+From d973b896cd9983f95efcccf900e26d398f406110 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 6 Apr 2011 09:22:21 +0200
+Subject: [PATCH] mkdir always with -m 0755
+
+---
+ modules.d/01fips/fips.sh                      |    2 +-
+ modules.d/01fips/module-setup.sh              |    2 +-
+ modules.d/10rpmversion/module-setup.sh        |    2 +-
+ modules.d/45ifcfg/write-ifcfg.sh              |    6 +++---
+ modules.d/50plymouth/plymouth-populate-initrd |    4 ++--
+ modules.d/50plymouth/plymouth-pretrigger.sh   |    2 +-
+ modules.d/90dmsquash-live/dmsquash-live-root  |   18 +++++++++---------
+ modules.d/90lvm/lvm_scan.sh                   |    2 +-
+ modules.d/95dasd_mod/parse-dasd-mod.sh        |    2 +-
+ modules.d/95fcoe/module-setup.sh              |    2 +-
+ modules.d/95nfs/module-setup.sh               |    6 +++---
+ modules.d/95nfs/nfsroot-cleanup.sh            |    3 ++-
+ modules.d/98syslog/module-setup.sh            |    2 +-
+ modules.d/99base/dracut-lib.sh                |    4 ++--
+ 14 files changed, 29 insertions(+), 28 deletions(-)
+
+diff --git a/modules.d/01fips/fips.sh b/modules.d/01fips/fips.sh
+index 857c355..960e589 100755
+--- a/modules.d/01fips/fips.sh
++++ b/modules.d/01fips/fips.sh
+@@ -33,7 +33,7 @@ do_fips()
+ 
+     [ -e "$boot" ]
+ 
+-    mkdir /boot
++    mkdir -m 0755 /boot
+     info "Mounting $boot as /boot"
+     mount -oro "$boot" /boot
+ 
+diff --git a/modules.d/01fips/module-setup.sh b/modules.d/01fips/module-setup.sh
+index cdcded6..23c550a 100755
+--- a/modules.d/01fips/module-setup.sh
++++ b/modules.d/01fips/module-setup.sh
+@@ -15,7 +15,7 @@ installkernel() {
+     FIPSMODULES="$FIPSMODULES des deflate ecb eseqiv hmac seqiv sha256 sha512"
+     FIPSMODULES="$FIPSMODULES cryptomgr crypto_null tcrypt" 
+ 
+-    mkdir -p "${initdir}/etc/modprobe.d"
++    mkdir -m 0755 -p "${initdir}/etc/modprobe.d"
+ 
+     for mod in $FIPSMODULES; do 
+         if instmods $mod; then
+diff --git a/modules.d/10rpmversion/module-setup.sh b/modules.d/10rpmversion/module-setup.sh
+index 60a8d89..2b32e27 100755
+--- a/modules.d/10rpmversion/module-setup.sh
++++ b/modules.d/10rpmversion/module-setup.sh
+@@ -17,7 +17,7 @@ install() {
+     else
+         if rpm -qf $(type -P $0) &>/dev/null; then
+             dracut_rpm_version=$(rpm -qf --qf '%{name}-%{version}-%{release}\n' $(type -P $0) | { ver="";while read line;do ver=$line;done;echo $ver;} )
+-            mkdir -m 0755 -p $initdir/lib $initdir/lib/dracut
++            mkdir -m 0755 -p $initdir/lib/dracut
+             echo $dracut_rpm_version > $initdir/lib/dracut/$dracut_rpm_version
+         fi
+     fi
+diff --git a/modules.d/45ifcfg/write-ifcfg.sh b/modules.d/45ifcfg/write-ifcfg.sh
+index fe72dbe..fb88318 100755
+--- a/modules.d/45ifcfg/write-ifcfg.sh
++++ b/modules.d/45ifcfg/write-ifcfg.sh
+@@ -17,7 +17,7 @@ if [ -e /tmp/bridge.info ]; then
+     . /tmp/bridge.info
+ fi
+ 
+-mkdir -p /tmp/ifcfg/
++mkdir -m 0755 -p /tmp/ifcfg/
+ 
+ for netif in $IFACES ; do
+     # bridge?
+@@ -134,9 +134,9 @@ for netif in $IFACES ; do
+ done
+ 
+ # Pass network opts
+-mkdir -p /run/initramfs
++mkdir -m 0755 -p /run/initramfs
+ cp /tmp/net.* /run/initramfs/ >/dev/null 2>&1
+-mkdir -p /run/initramfs/state/etc/sysconfig/network-scripts/
++mkdir -m 0755 -p /run/initramfs/state/etc/sysconfig/network-scripts/
+ cp /tmp/net.$netif.resolv.conf /run/initramfs/state/etc/ >/dev/null 2>&1
+ echo "files /etc/sysconfig/network-scripts" > /run/initramfs/rwtab
+ cp -a /tmp/ifcfg/* /run/initramfs/state/etc/sysconfig/network-scripts/ >/dev/null 2>&1
+diff --git a/modules.d/50plymouth/plymouth-populate-initrd b/modules.d/50plymouth/plymouth-populate-initrd
+index 199cab0..28c225c 100755
+--- a/modules.d/50plymouth/plymouth-populate-initrd
++++ b/modules.d/50plymouth/plymouth-populate-initrd
+@@ -9,7 +9,7 @@ dracut_install /bin/plymouth \
+     "${PLYMOUTH_LOGO_FILE}" \
+     /etc/system-release 
+ 
+-mkdir -p "${initdir}/usr/share/plymouth"
++mkdir -m 0755 -p "${initdir}/usr/share/plymouth"
+ 
+ if [[ $hostonly ]]; then 
+     dracut_install "${usrlibdir}/plymouth/text.so" \
+@@ -34,7 +34,7 @@ else
+     for x in /usr/share/plymouth/themes/{text,details}/* ; do
+         [[ -f "$x" ]] || continue
+         THEME_DIR=$(dirname "$x")
+-        mkdir -p "${initdir}/$THEME_DIR"
++        mkdir -m 0755 -p "${initdir}/$THEME_DIR"
+         dracut_install "$x"
+     done
+     for x in "${usrlibdir}"/plymouth/{text,details}.so ; do
+diff --git a/modules.d/50plymouth/plymouth-pretrigger.sh b/modules.d/50plymouth/plymouth-pretrigger.sh
+index 477975f..6f8628d 100755
+--- a/modules.d/50plymouth/plymouth-pretrigger.sh
++++ b/modules.d/50plymouth/plymouth-pretrigger.sh
+@@ -17,7 +17,7 @@ if getargbool 1 rd.plymouth -n rd_NO_PLYMOUTH; then
+     [ -e /dev/fb ] || ln -s fb0 /dev/fb
+ 
+     info "Starting plymouth daemon"
+-    mkdir -m 0755 -p /run/plymouth
++    mkdir -m 0755 /run/plymouth
+     [ -x /bin/plymouthd ] && /bin/plymouthd --attach-to-session --pid-file /run/plymouth/pid
+     [ -x /lib/udev/console_init ] && /lib/udev/console_init tty0
+     /bin/plymouth --show-splash 2>&1 | vinfo
+diff --git a/modules.d/90dmsquash-live/dmsquash-live-root b/modules.d/90dmsquash-live/dmsquash-live-root
+index c54a46d..928aff9 100755
+--- a/modules.d/90dmsquash-live/dmsquash-live-root
++++ b/modules.d/90dmsquash-live/dmsquash-live-root
+@@ -43,7 +43,7 @@ getarg ro && liverw=ro
+ getarg rw && liverw=rw
+ [ -z "$liverw" ] && liverw=ro
+ # mount the backing of the live image first
+-mkdir -p /run/initramfs/live
++mkdir -m 0755 -p /run/initramfs/live
+ if [ -f $livedev ]; then
+     # no mount needed - we've already got the LiveOS image in initramfs
+     case $livedev in
+@@ -84,7 +84,7 @@ do_live_overlay() {
+     # need to know where to look for the overlay
+     setup=""
+     if [ -n "$devspec" -a -n "$pathspec" -a -n "$overlay" ]; then
+-        mkdir /overlayfs
++        mkdir -m 0755 /run/initramfs/overlayfs
+         mount -n -t auto $devspec /overlayfs || :
+         if [ -f /overlayfs$pathspec -a -w /overlayfs$pathspec ]; then
+             losetup $OVERLAY_LOOPDEV /overlayfs$pathspec
+@@ -93,7 +93,7 @@ do_live_overlay() {
+             fi
+             setup="yes"
+         fi
+-        umount -l /overlayfs || :
++        umount -l /run/initramfs/overlayfs || :
+     fi
+ 
+     if [ -z "$setup" ]; then
+@@ -125,11 +125,11 @@ if [ -n "$OSMINSQFS" ]; then
+     dd if=$OSMINSQFS of=/osmin.img 2> /dev/null
+     OSMIN_SQUASHED_LOOPDEV=$( losetup -f )
+     losetup -r $OSMIN_SQUASHED_LOOPDEV /osmin.img
+-    mkdir -p /squashfs.osmin
+-    mount -n -t squashfs -o ro $OSMIN_SQUASHED_LOOPDEV /squashfs.osmin
++    mkdir -m 0755 -p /run/initramfs/squashfs.osmin
++    mount -n -t squashfs -o ro $OSMIN_SQUASHED_LOOPDEV /run/initramfs/squashfs.osmin
+     OSMIN_LOOPDEV=$( losetup -f )
+-    losetup -r $OSMIN_LOOPDEV /squashfs.osmin/osmin
+-    umount -l /squashfs.osmin
++    losetup -r $OSMIN_LOOPDEV /run/initramfs/squashfs.osmin/osmin
++    umount -l /run/initramfs/squashfs.osmin
+ fi
+ 
+ # we might have an embedded fs image to use as rootfs (uncompressed live)
+@@ -164,8 +164,8 @@ if [ -e "$SQUASHED" ] ; then
+ 
+     SQUASHED_LOOPDEV=$( losetup -f )
+     losetup -r $SQUASHED_LOOPDEV $SQUASHED
+-    mkdir -p /squashfs
+-    mount -n -t squashfs -o ro $SQUASHED_LOOPDEV /squashfs
++    mkdir -m 0755 -p /run/initramfs/squashfs
++    mount -n -t squashfs -o ro $SQUASHED_LOOPDEV /run/initramfs/squashfs
+ 
+     BASE_LOOPDEV=$( losetup -f )
+     if [ -f /squashfs/LiveOS/ext3fs.img ]; then
+diff --git a/modules.d/90lvm/lvm_scan.sh b/modules.d/90lvm/lvm_scan.sh
+index fab0017..3f2a923 100755
+--- a/modules.d/90lvm/lvm_scan.sh
++++ b/modules.d/90lvm/lvm_scan.sh
+@@ -11,7 +11,7 @@ LVS=$(getargs rd.lvm.lv rd_LVM_LV=)
+ SNAPSHOT=$(getargs rd.lvm.snapshot rd_LVM_SNAPSHOT=)
+ SNAPSIZE=$(getargs rd.lvm.snapsize rd_LVM_SNAPSIZE=)
+ 
+-[ -d /etc/lvm ] || mkdir -p /etc/lvm
++[ -d /etc/lvm ] || mkdir -m 0755 -p /etc/lvm
+ # build a list of devices to scan
+ lvmdevs=$(
+     for f in /tmp/.lvm_scan-*; do
+diff --git a/modules.d/95dasd_mod/parse-dasd-mod.sh b/modules.d/95dasd_mod/parse-dasd-mod.sh
+index 2bccab4..b550156 100755
+--- a/modules.d/95dasd_mod/parse-dasd-mod.sh
++++ b/modules.d/95dasd_mod/parse-dasd-mod.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ # -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
+ # ex: ts=8 sw=4 sts=4 et filetype=sh
+-[ -d /etc/modprobe.d ] || mkdir /etc/modprobe.d
++[ -d /etc/modprobe.d ] || mkdir -m 0755 -p /etc/modprobe.d
+ 
+ dasd_arg=$(getarg rd.dasd_mod.dasd rd_DASD_MOD=)
+ if [ -n "$dasd_arg" ]; then
+diff --git a/modules.d/95fcoe/module-setup.sh b/modules.d/95fcoe/module-setup.sh
+index f07a9ae..2ebff09 100755
+--- a/modules.d/95fcoe/module-setup.sh
++++ b/modules.d/95fcoe/module-setup.sh
+@@ -26,7 +26,7 @@ install() {
+     inst fipvlan
+     inst lldpad
+ 
+-    mkdir -p "$initdir/var/lib/lldpad"
++    mkdir -m 0755 -p "$initdir/var/lib/lldpad"
+ 
+     inst "$moddir/fcoe-up" "/sbin/fcoe-up"
+     inst "$moddir/fcoe-genrules.sh" "/sbin/fcoe-genrules.sh"
+diff --git a/modules.d/95nfs/module-setup.sh b/modules.d/95nfs/module-setup.sh
+index 84673ab..ad6c257 100755
+--- a/modules.d/95nfs/module-setup.sh
++++ b/modules.d/95nfs/module-setup.sh
+@@ -49,9 +49,9 @@ install() {
+     inst_hook cmdline 90 "$moddir/parse-nfsroot.sh"
+     inst_hook pre-pivot 99 "$moddir/nfsroot-cleanup.sh"
+     inst "$moddir/nfsroot" "/sbin/nfsroot"
+-    mkdir -p "$initdir/var/lib/nfs/rpc_pipefs"
+-    mkdir -p "$initdir/var/lib/rpcbind"
+-    mkdir -p "$initdir/var/lib/nfs/statd/sm"
++    mkdir -m 0755 -p "$initdir/var/lib/nfs/rpc_pipefs"
++    mkdir -m 0755 -p "$initdir/var/lib/rpcbind"
++    mkdir -m 0755 -p "$initdir/var/lib/nfs/statd/sm"
+ 
+     # Rather than copy the passwd file in, just set a user for rpcbind
+     # We'll save the state and restart the daemon from the root anyway
+diff --git a/modules.d/95nfs/nfsroot-cleanup.sh b/modules.d/95nfs/nfsroot-cleanup.sh
+index b9fa771..b2f178e 100755
+--- a/modules.d/95nfs/nfsroot-cleanup.sh
++++ b/modules.d/95nfs/nfsroot-cleanup.sh
+@@ -16,7 +16,8 @@ pid=$(pidof rpcbind)
+ 
+ if incol2 /proc/mounts /var/lib/nfs/rpc_pipefs; then 
+     # try to create the destination directory
+-    [ -d $NEWROOT/$rpcpipefspath ] || mkdir -p $NEWROOT/$rpcpipefspath 2>/dev/null
++    [ -d $NEWROOT/$rpcpipefspath ] || \
++        mkdir -m 0755 -p $NEWROOT/$rpcpipefspath 2>/dev/null
+ 
+     if [ -d $NEWROOT/$rpcpipefspath ]; then
+         mount --move /var/lib/nfs/rpc_pipefs $NEWROOT/$rpcpipefspath
+diff --git a/modules.d/98syslog/module-setup.sh b/modules.d/98syslog/module-setup.sh
+index 056e9d9..2fbef16 100755
+--- a/modules.d/98syslog/module-setup.sh
++++ b/modules.d/98syslog/module-setup.sh
+@@ -35,7 +35,7 @@ install() {
+         inst_hook pre-pivot 99 "$moddir/syslog-cleanup.sh"
+         inst_simple "$moddir/rsyslogd-start.sh" /sbin/rsyslogd-start
+         inst_simple "$moddir/rsyslogd-stop.sh" /sbin/rsyslogd-stop
+-        mkdir -p ${initdir}/etc/templates
++        mkdir -m 0755 -p ${initdir}/etc/templates
+         inst_simple "${moddir}/rsyslog.conf" /etc/templates
+     fi
+ }
+diff --git a/modules.d/99base/dracut-lib.sh b/modules.d/99base/dracut-lib.sh
+index 930138a..a5a3f59 100755
+--- a/modules.d/99base/dracut-lib.sh
++++ b/modules.d/99base/dracut-lib.sh
+@@ -453,10 +453,10 @@ mkuniqdir() {
+     local dir="$1"; local prefix="$2"
+     local retdir; local retdir_new
+ 
+-    [ -d "${dir}" ] || mkdir -p "${dir}" || return 1
++    [ -d "${dir}" ] || mkdir -m 0755 -p "${dir}" || return 1
+ 
+     retdir=$(funiq "${dir}" "${prefix}") || return 1
+-    until mkdir "${retdir}" 2>/dev/null; do
++    until mkdir -m 0755 "${retdir}" 2>/dev/null; do
+         retdir_new=$(funiq "${dir}" "${prefix}") || return 1
+         [ "$retdir_new" = "$retdir" ] && return 1
+         retdir="$retdir_new"

@@ -1,4 +1,4 @@
-From c174aea07decb62d264b40301ee944ba50244438 Mon Sep 17 00:00:00 2001
+From 13af32a6b9309ee8dc195b89d5347ed1f7bd24ac Mon Sep 17 00:00:00 2001
 From: Jon Ander Hernandez <jonan.h@gmail.com>
 Date: Fri, 18 Feb 2011 12:24:06 +0100
 Subject: [PATCH] Ensure rpc_pipefs is mounted

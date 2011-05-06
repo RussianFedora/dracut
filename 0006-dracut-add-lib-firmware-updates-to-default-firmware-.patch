@@ -1,4 +1,4 @@
-From 8bc650d9dc6dd50ea3b955d5068c2f805a5d1878 Mon Sep 17 00:00:00 2001
+From 44d3c5f189a7eed26a344403ff3183b302772daf Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 15:32:34 +0200
 Subject: [PATCH] dracut: add "/lib/firmware/updates" to default firmware path

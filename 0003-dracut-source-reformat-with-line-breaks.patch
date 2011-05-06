@@ -1,4 +1,4 @@
-From 2aad23443e995b99dd1477ed018c5ac472a06aea Mon Sep 17 00:00:00 2001
+From 188ceb139a2895c8e943dbfe623466796259773c Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 11:27:15 +0200
 Subject: [PATCH] dracut: source reformat with line breaks

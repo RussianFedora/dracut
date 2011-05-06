@@ -1,4 +1,4 @@
-From 76353076c081ac51647214c5ce910aba027b25db Mon Sep 17 00:00:00 2001
+From c2b63ed8c670056a3675e0649badb1791c02ad8a Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Amadeusz=20=C5=BBo=C5=82nowski?= <aidecoe@aidecoe.name>
 Date: Sat, 2 Apr 2011 00:45:44 +0200
 Subject: [PATCH] dracut: don't fail on empty /etc/ld.so.conf.d/

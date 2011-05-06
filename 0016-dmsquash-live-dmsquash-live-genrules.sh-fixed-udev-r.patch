@@ -1,4 +1,4 @@
-From 98b108284cc62203d3f9cc392b287affdee35305 Mon Sep 17 00:00:00 2001
+From 5f66cdbbb0b0e7ad075504305dd4adaae60b9373 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Thu, 31 Mar 2011 08:24:15 +0200
 Subject: [PATCH] dmsquash-live/dmsquash-live-genrules.sh: fixed udev rule location

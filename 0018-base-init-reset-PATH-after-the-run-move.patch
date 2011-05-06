@@ -1,4 +1,4 @@
-From 985377435120ce2b2ba48c9236f3f788a5db822a Mon Sep 17 00:00:00 2001
+From b7690b2e60fd1c189d27b70fa2240cd62746fa0a Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Thu, 31 Mar 2011 14:10:22 +0200
 Subject: [PATCH] base/init: reset PATH after the /run move

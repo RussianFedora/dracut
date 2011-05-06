@@ -1,4 +1,4 @@
-From e620bb01da5c957c311f336c2f963c9bd9f692c5 Mon Sep 17 00:00:00 2001
+From fa1508ddd8af5c9736ccd916fa507ab795d03568 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Wed, 30 Mar 2011 00:01:00 +0200
 Subject: [PATCH] base/init: fix cdrom polling

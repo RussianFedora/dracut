@@ -1,4 +1,4 @@
-From 79471f365e5f276ac5463404fbe739ddb2e12465 Mon Sep 17 00:00:00 2001
+From e972af8bed585b75e689bf952f82d596077d68a1 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Thu, 31 Mar 2011 13:12:38 +0200
 Subject: [PATCH] base/dracut-lib.sh: changed kmgs log levels

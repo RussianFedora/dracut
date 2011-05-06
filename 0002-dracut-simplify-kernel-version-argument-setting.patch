@@ -1,4 +1,4 @@
-From 8a5354a9a5264c67a84c4705c931c5f554d8d343 Mon Sep 17 00:00:00 2001
+From 88aa2210e4a548c63561271a1b349bb717662863 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 11:21:54 +0200
 Subject: [PATCH] dracut: simplify $kernel version argument setting

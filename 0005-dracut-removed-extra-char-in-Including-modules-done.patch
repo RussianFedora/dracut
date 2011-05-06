@@ -1,4 +1,4 @@
-From ea216a650ef738e324253f27b59d74e3d8aa6062 Mon Sep 17 00:00:00 2001
+From a41be01a50f70ce346dbca4ae0197eec9b353030 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 14:45:08 +0200
 Subject: [PATCH] dracut: removed extra char in "Including modules done"

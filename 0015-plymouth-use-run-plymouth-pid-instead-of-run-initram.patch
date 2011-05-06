@@ -1,4 +1,4 @@
-From 8ee30d09a44601d54567d7d51c84b2d714dd8e0f Mon Sep 17 00:00:00 2001
+From 149037e0252d4c9f5d10c07a48aa62860de6ceea Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Wed, 30 Mar 2011 16:24:57 +0200
 Subject: [PATCH] plymouth: use /run/plymouth/pid instead of /run/initramfs/plymouth

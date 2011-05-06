@@ -1,4 +1,4 @@
-From dbf381f7fb369bd6336272847da882d8ef0e5a30 Mon Sep 17 00:00:00 2001
+From 763984005a97500fa4fac47b9b83e03c838017e8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Amadeusz=20=C5=BBo=C5=82nowski?= <aidecoe@aidecoe.name>
 Date: Tue, 29 Mar 2011 01:21:56 +0200
 Subject: [PATCH] dracut: don't skip zero-length string outfile argument

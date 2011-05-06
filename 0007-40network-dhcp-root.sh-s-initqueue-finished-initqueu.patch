@@ -1,4 +1,4 @@
-From 85323dcbb957e7fa3daebd3d5b2f9563ef379ca2 Mon Sep 17 00:00:00 2001
+From e77e82e12ebc5d33a6be8bdf8b35df6ad11e38c7 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 15:46:53 +0200
 Subject: [PATCH] 40network/dhcp-root.sh: s#initqueue-finished#initqueue/finished#g

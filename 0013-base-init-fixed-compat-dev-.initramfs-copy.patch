@@ -1,4 +1,4 @@
-From 249f8b5bfc90d9a8ec542e870a527a08e1da7cc3 Mon Sep 17 00:00:00 2001
+From 3b365e72a58da6fae211a5a12e7f98d18d8671e2 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Wed, 30 Mar 2011 03:23:37 +0200
 Subject: [PATCH] base/init: fixed compat /dev/.initramfs copy

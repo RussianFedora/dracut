@@ -1,0 +1,22 @@
+From 479ae748c612d72de33010144ef4a0f3ae136f62 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 4 May 2011 16:07:31 +0200
+Subject: [PATCH] init: create /run with "-p"
+
+---
+ modules.d/99base/init |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/modules.d/99base/init b/modules.d/99base/init
+index 0f18b44..ceb3619 100755
+--- a/modules.d/99base/init
++++ b/modules.d/99base/init
+@@ -106,7 +106,7 @@ ln -s /proc/self/fd /dev/fd >/dev/null 2>&1
+ ln -s /proc/self/fd/0 /dev/stdin >/dev/null 2>&1
+ ln -s /proc/self/fd/1 /dev/stdout >/dev/null 2>&1
+ ln -s /proc/self/fd/2 /dev/stderr >/dev/null 2>&1
+-mkdir -m 0755 /dev/shm /dev/pts /run 
++mkdir -p -m 0755 /dev/shm /dev/pts /run 
+ mount -t devpts -o gid=5,mode=620,noexec,nosuid devpts /dev/pts >/dev/null 2>&1
+ mount -t tmpfs -o mode=1777,nosuid,nodev  tmpfs /dev/shm >/dev/null 2>&1
+ # create /run which will obsolete /var/run

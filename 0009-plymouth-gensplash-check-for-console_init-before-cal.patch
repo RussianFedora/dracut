@@ -1,4 +1,4 @@
-From 7931bf04204ab41d6e87890e172f2805718bb93a Mon Sep 17 00:00:00 2001
+From 353feb3a4d3067136d4c36e086fa71a9329bad95 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 16:38:11 +0200
 Subject: [PATCH] plymouth gensplash: check for console_init before calling it

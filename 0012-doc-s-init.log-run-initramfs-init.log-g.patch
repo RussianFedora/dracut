@@ -1,4 +1,4 @@
-From 561d7f4d7c7f6245a45c0943c91518654284e457 Mon Sep 17 00:00:00 2001
+From f78d7fbc6dc5cb1054a4b2de45de4766f04ad103 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Wed, 30 Mar 2011 03:22:14 +0200
 Subject: [PATCH] doc: s#/init.log#/run/initramfs/init.log#g

@@ -1,4 +1,4 @@
-From a16ebfd56abfb02f28b72a74c68c24501e2a75d7 Mon Sep 17 00:00:00 2001
+From b8d2485c84ca7511906729a0420c9de0ba59d343 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Tue, 29 Mar 2011 11:30:27 +0200
 Subject: [PATCH] dracut-functions: bashified ret=ret+$? to ret+=$?

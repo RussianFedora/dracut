@@ -1,4 +1,4 @@
-From 01583ae4ad05519a78cf661ff1104cd9b2910aa7 Mon Sep 17 00:00:00 2001
+From 7175ded515cb859a11e6bb9fbffbae771dfbf3f6 Mon Sep 17 00:00:00 2001
 From: Harald Hoyer <harald@redhat.com>
 Date: Wed, 30 Mar 2011 14:50:42 +0200
 Subject: [PATCH] fips: fixed "boot=<dev>" handling
