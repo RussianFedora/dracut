@@ -1,0 +1,33 @@
+From 1043433a0e1fde9e777c11af09e4c7ed70e180e0 Mon Sep 17 00:00:00 2001
+From: Alan Pevec <apevec@redhat.com>
+Date: Thu, 12 May 2011 14:16:07 +0200
+Subject: [PATCH] dmsquash-live/dmsquash-live-root: add missing changes for /run
+
+Change to /run/initramfs/squashfs/ was not complete.
+---
+ modules.d/90dmsquash-live/dmsquash-live-root |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/modules.d/90dmsquash-live/dmsquash-live-root b/modules.d/90dmsquash-live/dmsquash-live-root
+index 928aff9..82a4bc1 100755
+--- a/modules.d/90dmsquash-live/dmsquash-live-root
++++ b/modules.d/90dmsquash-live/dmsquash-live-root
+@@ -168,13 +168,13 @@ if [ -e "$SQUASHED" ] ; then
+     mount -n -t squashfs -o ro $SQUASHED_LOOPDEV /run/initramfs/squashfs
+ 
+     BASE_LOOPDEV=$( losetup -f )
+-    if [ -f /squashfs/LiveOS/ext3fs.img ]; then
+-        losetup -r $BASE_LOOPDEV /squashfs/LiveOS/ext3fs.img
+-    elif [ -f /squashfs/LiveOS/rootfs.img ]; then
+-        losetup -r $BASE_LOOPDEV /squashfs/LiveOS/rootfs.img
++    if [ -f /run/initramfs/squashfs/LiveOS/ext3fs.img ]; then
++        losetup -r $BASE_LOOPDEV /run/initramfs/squashfs/LiveOS/ext3fs.img
++    elif [ -f /run/initramfs/squashfs/LiveOS/rootfs.img ]; then
++        losetup -r $BASE_LOOPDEV /run/initramfs/squashfs/LiveOS/rootfs.img
+     fi
+ 
+-    umount -l /squashfs
++    umount -l /run/initramfs/squashfs
+ 
+     do_live_from_base_loop
+ fi

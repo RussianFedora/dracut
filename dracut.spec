@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 009
-Release: 9%{?dist}.1.R
+Release: 10%{?dist}.1.R
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora}
@@ -45,6 +45,7 @@ Patch20: 0020-mkdir-always-with-m-0755.patch
 #Patch23: 0023-10i18n-do-not-use-console_init-shell-script-if-syste.patch
 #Patch24: 0024-plymouth-gensplash-reset-tty-after-plymouth-messed-w.patch
 Patch25: 0025-init-create-run-with-p.patch
+Patch26: 0026-dmsquash-live-dmsquash-live-root-add-missing-changes.patch
 
 # load font
 Patch99: dracut-009-console_init.patch
@@ -206,6 +207,7 @@ This package contains tools to assemble the local initrd and host configuration.
 #%patch23 -p1
 #%patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 %patch99 -p1
 
@@ -344,6 +346,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/dracut/overlay
 
 %changelog
+* Fri May 13 2011 Arkady L. Shane <ashejn@russianfedora.ru> 009-10.1.R
+- resolved incomplete /run change for squashfs
+Resolves: rhbz#699113
+
 * Fri May 06 2011 Arkady L. Shane <ashejn@russianfedora.ru> 009-9.1.R
 - fixed console font loading (working fix of rhbz#700971)
 
