@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 009
-Release: 10%{?dist}.1.R
+Release: 11%{?dist}.1.R
 
 Summary: Initramfs generator using udev
 %if 0%{?fedora}
@@ -46,6 +46,15 @@ Patch20: 0020-mkdir-always-with-m-0755.patch
 #Patch24: 0024-plymouth-gensplash-reset-tty-after-plymouth-messed-w.patch
 Patch25: 0025-init-create-run-with-p.patch
 Patch26: 0026-dmsquash-live-dmsquash-live-root-add-missing-changes.patch
+Patch27: 0027-dracut-fix-overlayfs-paths.patch
+Patch28: 0028-correct-module-name.patch
+Patch29: 0029-skip-condition-fixed.patch
+Patch30: 0030-don-t-overwrite-ifname.patch
+Patch31: 0031-network-net-genrules.sh-also-honor-rename-events.patch
+Patch32: 0032-network-parse-ip-opts.sh-fix-ifname-for-ibft-with-al.patch
+Patch33: 0033-iscsi-add-additional-hardcoded-modules.patch
+Patch34: 0034-iscsi-mount-lun.sh-use-NEWROOT.patch
+Patch35: 0035-iscsi-find-iscsi-kernel-modules-by-symbol-names.patch
 
 # load font
 Patch99: dracut-009-console_init.patch
@@ -208,6 +217,15 @@ This package contains tools to assemble the local initrd and host configuration.
 #%patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
+%patch28 -p1
+%patch29 -p1
+%patch30 -p1
+%patch31 -p1
+%patch32 -p1
+%patch33 -p1
+%patch34 -p1
+%patch35 -p1
 
 %patch99 -p1
 
@@ -346,12 +364,18 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/lib/dracut/overlay
 
 %changelog
-* Fri May 13 2011 Arkady L. Shane <ashejn@russianfedora.ru> 009-10.1.R
+* Fri May 27 2011 Arkady L. Shane <ashejn@russianfedora.ru> 009-11.1.R
+- fixed console font loading (working fix of rhbz#700971)
+
+* Fri May 20 2011 Harald Hoyer <harald@redhat.com> 009-11
+- fixed dmsquash with overlay 
+Resolves: rhbz#706122
+- fixed issues with iSCSI booting
+Resolves: rhbz#705213
+
+* Thu May 12 2011 Harald Hoyer <harald@redhat.com> 009-10
 - resolved incomplete /run change for squashfs
 Resolves: rhbz#699113
-
-* Fri May 06 2011 Arkady L. Shane <ashejn@russianfedora.ru> 009-9.1.R
-- fixed console font loading (working fix of rhbz#700971)
 
 * Thu May 05 2011 Harald Hoyer <harald@redhat.com> 009-9
 - removed fix for rhbz#700971 until resolved
