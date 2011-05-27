@@ -1,0 +1,24 @@
+From 6185d37bb2f98838c9b4d1725207b4056448750d Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Wed, 6 Apr 2011 10:51:23 +0200
+Subject: [PATCH] iscsi: add additional hardcoded modules
+
+https://bugzilla.redhat.com/show_bug.cgi?id=692781
+https://bugzilla.redhat.com/show_bug.cgi?id=689694
+---
+ modules.d/95iscsi/module-setup.sh |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/modules.d/95iscsi/module-setup.sh b/modules.d/95iscsi/module-setup.sh
+index 23c612a..cddd4f3 100755
+--- a/modules.d/95iscsi/module-setup.sh
++++ b/modules.d/95iscsi/module-setup.sh
+@@ -40,7 +40,7 @@ depends() {
+ }
+ 
+ installkernel() {
+-    instmods iscsi_tcp crc32c iscsi_ibft
++    instmods iscsi_tcp crc32c iscsi_ibft be2iscsi bnx2 bnx2x bnx2i
+ }
+ 
+ install() {

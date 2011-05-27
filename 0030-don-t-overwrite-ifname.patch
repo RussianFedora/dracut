@@ -1,0 +1,42 @@
+From a6e6e61caa1fecd3c3517b1714392d61767ff454 Mon Sep 17 00:00:00 2001
+From: Marian Ganisin <mganisin@redhat.com>
+Date: Fri, 22 Apr 2011 08:48:36 -0400
+Subject: [PATCH] don't overwrite ifname=
+
+[Harald Hoyer <harald@redhat.com>: replaced grep with strstr]
+[Harald Hoyer <harald@redhat.com>: handle multiple ifname= arguments]
+---
+ modules.d/40network/parse-ip-opts.sh |   16 +++++++++++-----
+ 1 files changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
+index d7b7f37..4c3d0c2 100755
+--- a/modules.d/40network/parse-ip-opts.sh
++++ b/modules.d/40network/parse-ip-opts.sh
+@@ -54,15 +54,21 @@ fi
+ if [ "ibft" = "$(getarg ip=)" ]; then
+     modprobe iscsi_ibft
+     num=0
+-    (   
++    (
+ 	for iface in /sys/firmware/ibft/ethernet*; do
+ 	    [ -e ${iface}/mac ] || continue
+             ifname_mac=$(read a < ${iface}/mac; echo $a)
+ 	    [ -z "$ifname_mac" ] && continue
+-            ifname_if=ibft$num
+-	    num=$(( $num + 1 ))
+-	    echo "ifname=$ifname_if:$ifname_mac"
+-	    dev=$ifname_if
++            for ifname in $(getargs ifname=); do
++		if strstr "$ifname" "$ifname_mac"; then
++		    dev=${ifname%%:*}
++		else
++		    ifname_if=ibft$num
++		    num=$(( $num + 1 ))
++		    echo "ifname=$ifname_if:$ifname_mac"
++		    dev=$ifname_if
++		fi
++	    done
+ 
+ 	    dhcp=$(read a < ${iface}/dhcp; echo $a)
+ 	    if [ -n "$dhcp" ]; then

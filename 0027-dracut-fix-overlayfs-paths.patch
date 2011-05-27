@@ -1,0 +1,26 @@
+From 328e90d56385668076ddd55edf3ec60bd886e1d2 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Fri, 20 May 2011 13:00:46 +0200
+Subject: [PATCH] dracut: fix overlayfs paths
+
+---
+ modules.d/90dmsquash-live/dmsquash-live-root |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/modules.d/90dmsquash-live/dmsquash-live-root b/modules.d/90dmsquash-live/dmsquash-live-root
+index 82a4bc1..abd6644 100755
+--- a/modules.d/90dmsquash-live/dmsquash-live-root
++++ b/modules.d/90dmsquash-live/dmsquash-live-root
+@@ -85,9 +85,9 @@ do_live_overlay() {
+     setup=""
+     if [ -n "$devspec" -a -n "$pathspec" -a -n "$overlay" ]; then
+         mkdir -m 0755 /run/initramfs/overlayfs
+-        mount -n -t auto $devspec /overlayfs || :
+-        if [ -f /overlayfs$pathspec -a -w /overlayfs$pathspec ]; then
+-            losetup $OVERLAY_LOOPDEV /overlayfs$pathspec
++        mount -n -t auto $devspec /run/initramfs/overlayfs || :
++        if [ -f /run/initramfs/overlayfs$pathspec -a -w /run/initramfs/overlayfs$pathspec ]; then
++            losetup $OVERLAY_LOOPDEV /run/initramfs/overlayfs$pathspec
+             if [ -n "$reset_overlay" ]; then
+                 dd if=/dev/zero of=$OVERLAY_LOOPDEV bs=64k count=1 2>/dev/null
+             fi

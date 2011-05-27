@@ -1,0 +1,22 @@
+From 1d3a3be831886954f9bcec43a53adb4f34bd3a45 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Mon, 11 Apr 2011 13:35:27 +0200
+Subject: [PATCH] iscsi/mount-lun.sh: use NEWROOT
+
+---
+ modules.d/95iscsi/mount-lun.sh |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/modules.d/95iscsi/mount-lun.sh b/modules.d/95iscsi/mount-lun.sh
+index 0eadfd2..b11dd0a 100755
+--- a/modules.d/95iscsi/mount-lun.sh
++++ b/modules.d/95iscsi/mount-lun.sh
+@@ -8,7 +8,7 @@ NEWROOT=${NEWROOT:-"/sysroot"}
+ 
+ for disk in /dev/disk/by-path/*-iscsi-*-$iscsi_lun; do
+     if mount -t ${fstype:-auto} -o "$rflags" $disk $NEWROOT; then
+-        if [ ! -d /sysroot/proc ]; then
++        if [ ! -d $NEWROOT/proc ]; then
+             umount $disk
+             continue
+         fi

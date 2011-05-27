@@ -1,0 +1,39 @@
+From 67b53ea6dd51717a18045c159ebfb90b18d09790 Mon Sep 17 00:00:00 2001
+From: Harald Hoyer <harald@redhat.com>
+Date: Tue, 26 Apr 2011 23:22:41 +0200
+Subject: [PATCH] network/parse-ip-opts.sh: fix ifname for ibft with all args
+
+---
+ modules.d/40network/parse-ip-opts.sh |   15 +++++++++------
+ 1 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
+index 4c3d0c2..608fc88 100755
+--- a/modules.d/40network/parse-ip-opts.sh
++++ b/modules.d/40network/parse-ip-opts.sh
+@@ -59,16 +59,19 @@ if [ "ibft" = "$(getarg ip=)" ]; then
+ 	    [ -e ${iface}/mac ] || continue
+             ifname_mac=$(read a < ${iface}/mac; echo $a)
+ 	    [ -z "$ifname_mac" ] && continue
++            unset dev
+             for ifname in $(getargs ifname=); do
+ 		if strstr "$ifname" "$ifname_mac"; then
+ 		    dev=${ifname%%:*}
+-		else
+-		    ifname_if=ibft$num
+-		    num=$(( $num + 1 ))
+-		    echo "ifname=$ifname_if:$ifname_mac"
+-		    dev=$ifname_if
+-		fi
++                    break
++                fi
+ 	    done
++            if [ -z "$dev" ]; then
++		ifname_if=ibft$num
++		num=$(( $num + 1 ))
++		echo "ifname=$ifname_if:$ifname_mac"
++		dev=$ifname_if
++	    fi
+ 
+ 	    dhcp=$(read a < ${iface}/dhcp; echo $a)
+ 	    if [ -n "$dhcp" ]; then

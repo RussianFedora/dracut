@@ -1,0 +1,22 @@
+From cdb5d70498234747bd5d1c92ddc3183c54847b16 Mon Sep 17 00:00:00 2001
+From: Marian Ganisin <mganisin@redhat.com>
+Date: Fri, 22 Apr 2011 08:40:01 -0400
+Subject: [PATCH] correct module name
+
+---
+ modules.d/40network/parse-ip-opts.sh |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
+index b6021c6..c3fc001 100755
+--- a/modules.d/40network/parse-ip-opts.sh
++++ b/modules.d/40network/parse-ip-opts.sh
+@@ -52,7 +52,7 @@ if [ -n "$NEEDBOOTDEV" ] ; then
+ fi
+ 
+ if [ "ibft" = "$(getarg ip=)" ]; then
+-    modprobe ibft
++    modprobe iscsi_ibft
+     num=0
+     (   
+ 	for iface in /sys/firmware/ibft/ethernet*; do

@@ -1,0 +1,22 @@
+From 183849eb7dd3965cc863463de099357298c881b1 Mon Sep 17 00:00:00 2001
+From: Marian Ganisin <mganisin@redhat.com>
+Date: Fri, 22 Apr 2011 08:42:08 -0400
+Subject: [PATCH] skip condition fixed
+
+---
+ modules.d/40network/parse-ip-opts.sh |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/modules.d/40network/parse-ip-opts.sh b/modules.d/40network/parse-ip-opts.sh
+index c3fc001..d7b7f37 100755
+--- a/modules.d/40network/parse-ip-opts.sh
++++ b/modules.d/40network/parse-ip-opts.sh
+@@ -58,7 +58,7 @@ if [ "ibft" = "$(getarg ip=)" ]; then
+ 	for iface in /sys/firmware/ibft/ethernet*; do
+ 	    [ -e ${iface}/mac ] || continue
+             ifname_mac=$(read a < ${iface}/mac; echo $a)
+-	    [ -z "$ifname_mac" ] || continue
++	    [ -z "$ifname_mac" ] && continue
+             ifname_if=ibft$num
+ 	    num=$(( $num + 1 ))
+ 	    echo "ifname=$ifname_if:$ifname_mac"
